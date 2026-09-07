@@ -59,6 +59,7 @@ $\psi_2(t) < 0$ is the inventory weight — $𝑞$ does not change the total quo
 | **SSVI** | 13 | 10 | 1.012% | 2.057% | 5.389% | 32% |
 | **Global eSSVI** | 30 | 10 | 0.156% | 0.348% | 0.523% | 88% |
 
+-----
 
 ### Optimal Market Making policy
 
