@@ -9,11 +9,11 @@
 
 ## Option Market Making and Volatility Arbitrage
 
-Given a market maker's own view on realized volatility versus the
+For a market maker's own view on realized volatility versus the
 market's implied volatility, what bid/ask should they quote, accounting for
 inventory risk?
 
-Given maturity $\tau$ and strike price $K$, market-making takes place over a time interval $[0,T]$, with $T\in (0,\tau)$.
+Given a market maker who provides pricing quotes for a European call option with a given strike $K > 0$ and maturity $\tau > 0$, with $S = (S_t)_{t\ge 0}$ being the price process of the underlying risky asset. From the perspective of the market maker, $(S_t)_{t\ge 0}$ has the dynamics $\mathrm{d}S_t / S_t = \sigma_t \mathrm{d}B_t$ where $B$ is a standard one-dimensional Brownian motion. The market maker does not have any view on the (short-term) asset drift, while $\sigma = (\sigma_t)_{t\ge 0}$ is their subjective assessment of the asset volatility process. 
 
 **Objective.** The quotes are not chosen to maximize expected P&L; they
 maximize P&L net of the cost of carrying inventory the market making period:
@@ -32,7 +32,7 @@ $$\delta^{a,*}(t,s,q) = \underbrace{\frac{1}{\kappa^a}}_{\text{liquidity}} + \un
 
 
 $\psi_1(t,s) = \varphi(t,s) + \text{order-flow}$ is the maker's edge: $\varphi \propto (\sigma^2 -\sigma^2_{\text{imp}})$
-the squared difference between the maker's believed volatility and the market-implied volatility with $\sigma^2_{\text{imp}}(K,\tau)$ is sourced from the calibrated eSSVI implied volatility surface, weighted by the option's dollar gamma and discounted by the kernel $D(t,u)\approx e^{-\eta(u-t)}$.
+the difference of variances between the maker's believed volatility and the market-implied volatility, with $\sigma^2_{\text{imp}}(K,\tau)$ is sourced from the calibrated eSSVI implied volatility surface, weighted by the option's dollar gamma and discounted by the kernel $D(t,u)\approx e^{-\eta(u-t)}$.
 $\psi_2(t) < 0$ is the inventory weight —  
 $𝑞$ does not change the total quoted width, only how it's split between bid and ask.
 
