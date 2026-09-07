@@ -20,10 +20,10 @@ The SVI 5-parameter fit is not arbitrage-free constrained, so on live data it ca
 
 ### 2. Global eSSVI
 
-Writing $\psi(\tau) := \theta(\tau)\varphi(\tau)$, each slice is
+Writing $\psi(\tau) := \theta(\tau)\varphi(\tau)$,
 
 $$
-w(k;\tau) = \frac{1}{2}\Big[\theta(\tau) + \rho(\tau)\psi(\tau) k + \sqrt{\big(\psi(\tau)k+\theta(\tau)\rho(\tau)\big)^2 + \theta(\tau)^2\big(1-\rho(\tau)^2\big)}\Big]
+\text{eSSVI}(k;\tau) = \frac{1}{2}\Big[\theta(\tau) + \rho(\tau)\psi(\tau) k + \sqrt{\big(\psi(\tau)k+\theta(\tau)\rho(\tau)\big)^2 + \theta(\tau)^2\big(1-\rho(\tau)^2\big)}\Big]
 $$
 
 with $\rho(\tau)$ now free to vary by maturity — the extension over SSVI's single shared
@@ -31,11 +31,11 @@ $\rho$. For a discrete term structure $\tau_1 < \tau_2 < \dots < \tau_N$, write
 $(\theta_i,\rho_i,\psi_i) := (\theta(\tau_i),\rho(\tau_i),\psi(\tau_i))$, $3N$ parameters
 total.
 
-The key idea (Mingone, arXiv:2204.00312): rather than fit-then-check, the admissible region
+The key idea (Mingone 2022): rather than fit-then-check, the admissible region
 is **reparametrized as an open hyperrectangle**
 
 $$
-\rho_i \in (-1,1), \quad \theta_1 \in (0,\infty), \quad a_i \in (0,\infty), \quad c_i \in (0,1)
+\rho_i \in (-1,1), \quad \theta_1 \in (0,\infty), \quad a_i \in (0,\infty), \quad c_i \in (0,1), \qquad i =1,2,\ldots,N.
 $$
 
 with an explicit bijection (`unbox`) onto every arbitrage-free surface (Proposition 3.1).
