@@ -60,7 +60,7 @@ $\psi_2(t) < 0$ is the inventory weight — $𝑞$ does not change the total quo
 | **Global eSSVI** | 30 | 10 | 0.156% | 0.348% | 0.523% | 88% |
 
 
-### Optimal Market Making polity
+### Optimal Market Making policy
 
 **Vol-arb quoting policy: terminal PnL and inventory vs. fixed-width quoting baselines:**
 
