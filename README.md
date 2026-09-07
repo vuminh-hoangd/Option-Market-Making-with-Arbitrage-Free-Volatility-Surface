@@ -122,13 +122,12 @@ carries no arbitrage risk by construction.**
 
 ![Terminal portfolio value and inventory](pics/PnL-and-inventory.png)
 
-| | strategy | mean V_T | running penalty/fee | terminal penalty/fee | OBJECTIVE (value after fees) | objective sd |
-|---|---|:---:|:---:|:---:|:---:|:---:|
-| **0** | optimal (eq. 11) | 1,431.351 | 37.269 | 9.969 | 1,384.114 | 344.221 |
-| **1** | fixed-width x0.5 | 1,228.900 | 323.978 | 161.357 | 743.565 | 620.971 |
-| **2** | fixed-width x1 | 1,471.800 | 194.484 | 95.190 | 1,182.126 | 458.006 |
-| **3** | fixed-width x2 | 1,081.136 | 63.830 | 31.003 | 986.303 | 317.584 |
-
+| strategy | mean V_T | running penalty/fee | terminal penalty/fee | OBJECTIVE (value after fees) | objective sd |
+|---|:---:|:---:|:---:|:---:|:---:|
+| optimal (eq. 11) | 1,431.351 | 37.269 | 9.969 | 1,384.114 | 344.221 |
+| fixed-width x0.5 | 1,228.900 | 323.978 | 161.357 | 743.565 | 620.971 |
+| fixed-width x1 | 1,471.800 | 194.484 | 95.190 | 1,182.126 | 458.006 |
+| fixed-width x2 | 1,081.136 | 63.830 | 31.003 | 986.303 | 317.584 |
 
 **Benchmark.** Against a "fixed-width" quoter that ignores inventory and
 the vol view entirely, the fixed-width rule can earn *more* raw P&L
