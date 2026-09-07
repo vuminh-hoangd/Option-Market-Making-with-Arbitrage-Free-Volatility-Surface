@@ -128,7 +128,27 @@ risk — but scored on the actual objective above, the optimal rule wins
 decisively (it pays $47 in inventory-risk cost for that P&L vs. the
 fixed-width rule's $289, finishing $202 ahead net).
 
+## Project Structure
 
+```
+.
+├── src/
+│   ├── vol_surface/          # the calibration engine this README documents
+│   │   ├── bs.py             # Black-Scholes pricer + Greeks
+│   │   ├── implied_vol.py    # implied-vol solver (Newton-Raphson + Brent)
+│   │   ├── data.py           # Deribit ingestion, OTM filtering, put-call parity folding
+│   │   ├── svi.py            # raw SVI slice fit
+│   │   ├── ssvi.py           # SSVI: shared rho + shape function, surface-wide guarantee
+│   │   ├── global_essvi.py   # Global eSSVI: per-maturity rho, arbitrage-free by construction
+│   │   ├── arbitrage.py      # butterfly (g(k)>=0) + calendar no-arbitrage checks
+│   │   └── surface.py        # VolSurface / SSVIVolSurface query + interpolation layer
+│   └── option_market_making/ # optimal quoting under vol-arb (PDE/Riccati solvers, sim)
+├── notebooks/
+│   ├── vol_surface_pipeline.ipynb    # SVI vs SSVI vs eSSVI, fit -> validate -> benchmark
+│   └── option_mm_vol_arbitrage.ipynb # Lucic & Tse's quoting model, walked through end to end
+├── pics/                      # figures embedded in this README
+└── requirements.txt
+```
 
 
 ## References
