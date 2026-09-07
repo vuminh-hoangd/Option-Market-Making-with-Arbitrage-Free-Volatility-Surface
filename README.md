@@ -12,15 +12,13 @@ $w(k,\tau) = \sigma_{\text{impl}}(k,\tau)^2\tau$.
 
 One slice per maturity $\tau$, fitted independently, 5 parameters each (Gatheral 2013):
 
-$$
-w(k;\tau) = a + b\Big(\rho(k-m) + \sqrt{(k-m)^2 + \sigma^2}\Big)
-$$
+$$w(k; \tau_i) = a_i + b_i \left( \rho_i (k - m_i) + \sqrt{(k - m_i)^2 + \sigma_i^2} \right), \qquad i = 1, \dots, N \text{ at maturities } \tau_1 < \dots < \tau_N$$
 
 The SVI 5-parameter fit is not arbitrage-free constrained, so on live data it can land in an optimal curve that violates butterfly arbitrage 
 
 ### 2. Global eSSVI
 
-Writing $\psi(\tau) := \theta(\tau)\varphi(\tau)$, the surface is
+Writing $\psi(\tau) := \theta(\tau)\varphi(\tau)$, the surface's slice is
 
 $$
 \text{eSSVI}(k;\tau) = \frac{1}{2}\Big[\theta(\tau) + \rho(\tau)\psi(\tau) k + \sqrt{\big(\psi(\tau)k+\theta(\tau)\rho(\tau)\big)^2 + \theta(\tau)^2\big(1-\rho(\tau)^2\big)}\Big]
