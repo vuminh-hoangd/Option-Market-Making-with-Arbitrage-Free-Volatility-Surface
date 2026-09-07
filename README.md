@@ -17,7 +17,9 @@ Given maturity $\tau$ and strike price $K$, market-making takes place over a tim
 
 **Objective.** The quotes are not chosen to maximize expected P&L; they
 maximize P&L net of the cost of carrying inventory the market making period:
-$$\mathbb{E}\Big[V_T - \beta\int_0^T Q_u^2du - \alpha Q_T^2 \Big]$$
+
+\argmax $$\mathbb{E}\Big[V_T - \beta\int_0^T Q_u^2du - \alpha Q_T^2 \Big]$$
+
 where $V_T$ is the market maker's total portfolio value at the close, $Q_t$ is the market maker's option inventory at time $t$: how many lots of the option they're currently holding for all $t\in [0,T]$ and $\alpha, \beta$ are two penalty parameters that controls the risk level at the end of a trading period,
 and the intraday risk exposure throughout the entire duration of
 the market-making, respectively.
