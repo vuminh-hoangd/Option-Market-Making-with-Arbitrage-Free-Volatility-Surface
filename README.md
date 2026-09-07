@@ -9,8 +9,11 @@
 
 ## Option Market Making and Volatility Arbitrage
 
-Given maturity $\tau$ and strike price $K$, the maker thinks realised will beat implied — they want to be **long** vol, with half a trading day $T$. 
-Market-making takes place over a time interval $[0,T]$, with $T\in (0,\tau).$ 
+Given a market maker's own view on realized volatility versus the
+market's implied volatility, what bid/ask should they quote, accounting for
+inventory risk?
+
+Given maturity $\tau$ and strike price $K$, market-making takes place over a time interval $[0,T]$, with $T\in (0,\tau)$.
 
 **Objective.** The quotes are not chosen to maximize expected P&L; they
 maximize P&L net of the cost of carrying inventory the whole time:
@@ -22,6 +25,15 @@ The optimal bid/ask half-spreads (eq. 11) are:
 $$\delta^{b,*}(t,s,q) = \underbrace{\frac{1}{\kappa^b}}_{\text{liquidity}} - \underbrace{\psi_1(t,s)}_{\text{vol-arb edge + order-flow}} - \underbrace{(2q+1)\psi_2(t)}_{\text{inventory control}}$$
 
 $$\delta^{a,*}(t,s,q) = \underbrace{\frac{1}{\kappa^a}}_{\text{liquidity}} + \underbrace{\psi_1(t,s)}_{\text{vol-arb edge + order-flow}} + \underbrace{(2q-1)\psi_2(t)}_{\text{inventory control}}$$
+
+
+`psi_1(t,s) = phi(t,s) + order_flow_correction` is the maker's edge: `phi`
+is the expected profit from being right about volatility, gamma-weighted
+and discounted by how far into the future it can be harvested before the
+running inventory penalty makes it not worth holding the position that
+long. `psi_2(t) < 0` is the inventory weight — it does not change the
+total quoted width, only how it's split between bid and ask as `q` moves
+away from zero.
 
 
 
@@ -41,6 +53,7 @@ $$\delta^{a,*}(t,s,q) = \underbrace{\frac{1}{\kappa^a}}_{\text{liquidity}} + \un
 
 ![Global eSSVI surface](pics/eSSVI-raw.png)
 
+**Benchmark all three surfaces:**
 
 | Model | Params | Expiries Fitted | Median \|dvol\| | Mean | P90 | Inside Bid-Ask |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|
