@@ -132,6 +132,8 @@ fixed-width rule's $289, finishing $202 ahead net).
 
 **Optimal policy cuts the inventory-risk cost component by about ($\frac{289-47}{289} \approx 84\%$) with closed P&L to baseline (\$1,431 vs \$1,472).**
 
+**Optimal policy cuts the inventory-risk cost component by about ($\frac{289-47}{289} \approx 84\%$) with closed P\&L to baseline (\$1,431 vs \$1,472).**
+
 ## Project Structure
 
 ```
