@@ -38,7 +38,7 @@ $$
 
 with an explicit bijection (`unbox`) onto every arbitrage-free surface (Proposition 3.1).
 Calibration becomes ordinary box-constrained least squares on option **prices** — every
-point the optimizer can visit is already arbitrage-free, so there is nothing to check
+point the optimizer can visit is already **arbitrage-free**, so there is nothing to check
 afterward.
 
 
