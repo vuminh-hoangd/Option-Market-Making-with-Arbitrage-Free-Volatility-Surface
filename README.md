@@ -13,11 +13,15 @@ For a market maker's own view on realized volatility versus the
 market's implied volatility, what bid/ask should they quote, accounting for
 inventory risk?
 
-Given a market maker who provides pricing quotes for a European call option with a given strike $K > 0$ and maturity $\tau > 0$, with $(S_t)_{t \ge 0}$ being the price process of the underlying risky asset. From the perspective of the market maker, $(S_t)_{t \ge 0}$ has the dynamics:
 
-$$\frac{\mathrm{d}S_t}{S_t} = \sigma_t \mathrm{d}B_t$$
+Given a market maker who provides pricing quotes for a European call option with a given strike $K > 0$ and maturity $\tau > 0$, with $\left(S_t\right)_{t \ge 0}$ being the price process of the underlying risky asset. From the perspective of the market maker, $\left(S_t\right)_{t \ge 0}$ has the dynamics:
 
-where $B$ is a standard one-dimensional Brownian motion. The market maker does not have any view on the (short-term) asset drift, while $(\sigma_t)_{t \ge 0}$ is their subjective assessment of the asset volatility process..
+$$
+\frac{\mathrm{d}S_t}{S_t} = \sigma_t \, \mathrm{d}B_t
+$$
+
+where $B$ is a standard one-dimensional Brownian motion. The market maker does not have any view on the (short-term) asset drift, while $(\sigma_t)_{t \ge 0}$ is their subjective assessment of the asset volatility process.
+
 
 **Objective.** The quotes are not chosen to maximize expected P&L; they
 maximize P&L net of the cost of carrying inventory the market making period:
