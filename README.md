@@ -15,7 +15,7 @@ Market-making takes place over a time interval $[0,T]$, with $T\in (0,\tau).$
 **Objective.** The quotes are not chosen to maximize expected P&L; they
 maximize P&L net of the cost of carrying inventory the whole time:
 
-$$\mathbb{E}\Big[\,V_T \;-\; \beta\!\int_0^T Q_u^2\,du \;-\; \alpha\,Q_T^2\,\Big]$$
+$$\mathbb{E}\Big[V_T - \beta\int_0^T Q_u^2du - \alpha Q_T^2 \Big]$$
 
 The optimal bid/ask half-spreads (eq. 11) are:
 
