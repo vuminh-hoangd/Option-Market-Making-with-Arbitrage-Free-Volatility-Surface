@@ -6,7 +6,7 @@
 
 Maturity is denoted $\tau$ throughout;
 $k = \ln(K/F(\tau))$ is log-forward-moneyness, and total variance is
-$w(k,\tau) = \sigma_{\text{impl}}(k,\tau)^2\,\tau$.
+$w(k,\tau) = \sigma_{\text{impl}}(k,\tau)^2\tau$.
 
 ### 1. SVI
 
@@ -15,6 +15,7 @@ One slice per maturity $\tau$, fitted independently, 5 parameters each (Gatheral
 $$
 w(k;\tau) = a(\tau) + b(\tau)\Big(\rho(\tau)(k-m(\tau)) + \sqrt{(k-m(\tau))^2 + \sigma(\tau)^2}\Big)
 $$
+
 The SVI 5-parameter fit is not arbitrage-free constrained, so on live data it can land in an optimal curve that violates butterfly arbitrage 
 
 ### 2. Global eSSVI
