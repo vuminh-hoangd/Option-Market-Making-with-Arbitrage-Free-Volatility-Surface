@@ -128,3 +128,14 @@ decisively (it pays $47 in inventory-risk cost for that P&L vs. the
 fixed-width rule's $289, finishing $202 ahead net).
 
 
+
+
+## References
+
+- Gatheral, J., & Jacquier, A. (2013). [Arbitrage-free SVI volatility surfaces](https://arxiv.org/abs/1204.0646). *Quantitative Finance*, arXiv:1204.0646. — raw SVI, the butterfly/calendar no-arbitrage conditions, and the SSVI parametrization (`svi.py`, `arbitrage.py`, `ssvi.py`).
+- Mingone, A. (2022). [No arbitrage global parametrization for the eSSVI volatility surface](https://arxiv.org/abs/2204.00312). arXiv:2204.00312. — the box reparametrization that makes eSSVI calibration arbitrage-free by construction (`global_essvi.py`).
+- Lucic, V., & Tse, A. S. L. (2025). Option market-making and vol arbitrage. *Risk.net*. (Working paper title: *Optimal option market making and volatility arbitrage*.) — the quoting model implemented in `option_market_making/` and explored in `option_mm_vol_arbitrage.ipynb`.
+
+
+
+
