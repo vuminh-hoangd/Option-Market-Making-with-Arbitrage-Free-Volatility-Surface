@@ -108,7 +108,7 @@ model landing inside that band is indistinguishable from correct).
 | **Global eSSVI** | 30 | 10/10 | 0.156% | 0.348% | 0.523% | 88% |
 
 **Verdict: Global eSSVI.** SVI's median is slightly better, but it comes from dropping the
-one maturity it can't fit without arbitrage — and its `p90   and `inside bid-ask` are both worse than eSSVI's results. **eSSVI fits every maturity,
+one maturity it can't fit without arbitrage — and its `p90`   and `inside bid-ask` are both worse than eSSVI's results. **eSSVI fits every maturity,
 wins the columns that matter for a surface, and
 carries no arbitrage risk by construction.**
 
