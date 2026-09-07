@@ -17,8 +17,7 @@ Given maturity $\tau$ and strike price $K$, market-making takes place over a tim
 
 **Objective.** The quotes are not chosen to maximize expected P&L; they
 maximize P&L net of the cost of carrying inventory the whole time:
-
-$$\mathbb{E}\Big[V_T - \beta\int_0^T Q_u^2du - \alpha Q_T^2 \Big]$$
+$\mathbb{E}\Big[V_T - \beta\int_0^T Q_u^2du - \alpha Q_T^2 \Big]$
 
 The optimal bid/ask half-spreads (eq. 11) are:
 
@@ -27,12 +26,12 @@ $$\delta^{b,*}(t,s,q) = \underbrace{\frac{1}{\kappa^b}}_{\text{liquidity}} - \un
 $$\delta^{a,*}(t,s,q) = \underbrace{\frac{1}{\kappa^a}}_{\text{liquidity}} + \underbrace{\psi_1(t,s)}_{\text{vol-arb edge + order-flow}} + \underbrace{(2q-1)\psi_2(t)}_{\text{inventory control}}$$
 
 
-`psi_1(t,s) = phi(t,s) + order_flow_correction` is the maker's edge: `phi`
+$\psi_1(t,s) = \varphi(t,s) + \text{order_flow_correction}$ is the maker's edge: $\varphi$
 is the expected profit from being right about volatility, gamma-weighted
 and discounted by how far into the future it can be harvested before the
 running inventory penalty makes it not worth holding the position that
-long. `psi_2(t) < 0` is the inventory weight — it does not change the
-total quoted width, only how it's split between bid and ask as `q` moves
+long. $\psi_2(t) < 0$ is the inventory weight — it does not change the
+total quoted width, only how it's split between bid and ask as $q$ moves
 away from zero.
 
 
