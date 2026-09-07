@@ -14,7 +14,7 @@ One slice per maturity $\tau_i$, fitted independently, 5 parameters each (Gather
 
 $$w(k; \tau_i) = a_i + b_i \left( \rho_i (k - m_i) + \sqrt{(k - m_i)^2 + \sigma_i^2} \right), \qquad i = 1, \dots, N \text{ at maturities } \tau_1 < \dots < \tau_N$$
 
-The SVI 5-parameter fit is not arbitrage-free constrained, so on live data it can land in an optimal curve that violates butterfly arbitrage 
+The SVI 5-parameter fit is not arbitrage-free constrained, so on live data it can land in an optimal curve that violates butterfly arbitrage. 
 
 ### 2. Global eSSVI
 
@@ -37,7 +37,7 @@ $$
 $$
 
 with an explicit bijection (`unbox`) onto every arbitrage-free surface (Proposition 3.1).
-Calibration becomes ordinary box-constrained least squares on option **prices** — every
+Calibration becomes ordinary box-constrained least squares on option prices — every
 point the optimizer can visit is already **arbitrage-free**, so there is nothing to check
 afterward.
 
