@@ -6,7 +6,7 @@
 
 Maturity is denoted $\tau$ throughout;
 $k = \ln(K/F(\tau))$ is log-forward-moneyness, and total variance is
-$w(k,\tau) = \sigma_{\text{impl}}(k,\tau)^2\tau$.
+$w(k,\tau) = \sigma^2_{\text{imp}}(k,\tau)\tau$.
 
 ### 1. SVI
 
@@ -130,7 +130,7 @@ risk — but scored on the actual objective above, the optimal rule wins
 decisively (it pays $47 in inventory-risk cost for that P&L vs. the
 fixed-width rule's $289, finishing $202 ahead net).
 
-**Optimal policy cuts the inventory-risk cost component by about ($\frac{289-47}{289} \approx 84\%$).**
+**Optimal policy cuts the inventory-risk cost component by about ($\frac{289-47}{289} \approx 84%$).**
 
 ## Project Structure
 
