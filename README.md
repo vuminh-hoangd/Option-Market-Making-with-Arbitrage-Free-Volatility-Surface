@@ -83,6 +83,8 @@ $\psi_2(t) < 0$ is the inventory weight — $𝑞$ does not change the total quo
 
 ![SVI fit vs. market smile](pics/SVI-fit.png)
 
+SVI fit satisfies no-static arbitrage violations.
+
 **Global eSSVI surface fit across all expiries at once:**
 
 ![Global eSSVI surface](pics/eSSVI-raw.png)
