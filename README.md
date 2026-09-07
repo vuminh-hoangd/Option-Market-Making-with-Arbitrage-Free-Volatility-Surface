@@ -26,7 +26,7 @@ $$\delta^{b,*}(t,s,q) = \underbrace{\frac{1}{\kappa^b}}_{\text{liquidity}} - \un
 $$\delta^{a,*}(t,s,q) = \underbrace{\frac{1}{\kappa^a}}_{\text{liquidity}} + \underbrace{\psi_1(t,s)}_{\text{vol-arb edge + order-flow}} + \underbrace{(2q-1)\psi_2(t)}_{\text{inventory control}}$$
 
 
-$\psi_1(t,s) = \varphi(t,s) + \text{order_flow_correction}$ is the maker's edge: $\varphi$
+$\psi_1(t,s) = \varphi(t,s) + \text{order-flow}$ is the maker's edge: $\varphi$
 is the expected profit from being right about volatility, gamma-weighted
 and discounted by how far into the future it can be harvested before the
 running inventory penalty makes it not worth holding the position that
