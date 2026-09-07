@@ -130,6 +130,8 @@ risk — but scored on the actual objective above, the optimal rule wins
 decisively (it pays $47 in inventory-risk cost for that P&L vs. the
 fixed-width rule's $289, finishing $202 ahead net).
 
+**Optimal policy cuts the inventory-risk cost component by about ($\frac{289-47}{289} \approx 84\%$).**
+
 ## Project Structure
 
 ```
