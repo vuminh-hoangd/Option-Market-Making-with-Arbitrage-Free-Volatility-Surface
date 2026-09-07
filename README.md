@@ -10,7 +10,7 @@ $w(k,\tau) = \sigma_{\text{impl}}(k,\tau)^2\tau$.
 
 ### 1. SVI
 
-One slice per maturity $\tau$, fitted independently, 5 parameters each (Gatheral 2013):
+One slice per maturity $\tau_i$, fitted independently, 5 parameters each (Gatheral 2013):
 
 $$w(k; \tau_i) = a_i + b_i \left( \rho_i (k - m_i) + \sqrt{(k - m_i)^2 + \sigma_i^2} \right), \qquad i = 1, \dots, N \text{ at maturities } \tau_1 < \dots < \tau_N$$
 
