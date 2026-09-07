@@ -91,9 +91,9 @@ $\psi_2(t) < 0$ is the inventory weight — $𝑞$ does not change the total quo
 
 Both fitted to one 273-quote OTM chain,
 scored on every quote — including maturities a model declined to fit. Error per quote:
-$
+$`
 e_i = \big|\sigma^{\text{model}}(K_i,\tau_i) - \sigma^{\text{market}}_i\big|, \qquad
-\text{method} = \frac{(\text{ask}_i-\text{bid}_i)/2}{\text{vega}_i}
+\text{method} = \frac{(\text{ask}_i-\text{bid}_i)/2}{\text{vega}_i}`
 $
 (half the market's own bid-ask, converted from price to vol points via vega — a
 model landing inside that band is indistinguishable from correct).
