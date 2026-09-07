@@ -31,7 +31,7 @@ $$\delta^{b,*}(t,s,q) = \underbrace{\frac{1}{\kappa^b}}_{\text{liquidity}} - \un
 $$\delta^{a,*}(t,s,q) = \underbrace{\frac{1}{\kappa^a}}_{\text{liquidity}} + \underbrace{\psi_1(t,s)}_{\text{vol-arb edge + order-flow}} + \underbrace{(2q-1)\psi_2(t)}_{\text{inventory control}}$$
 
 
-$\psi_1(t,s) = \varphi(t,s) + \text{order-flow}$ is the maker's edge: $\varphi \prop (\sigma^2 -\sigma^2_{\text{imp}})$
+$\psi_1(t,s) = \varphi(t,s) + \text{order-flow}$ is the maker's edge: $\varphi \propto (\sigma^2 -\sigma^2_{\text{imp}})$
 the squared difference between the maker's believed volatility and the market-implied volatility with $\sigma^2_{\text{imp}}(K,\tau)$ is sourced from the calibrated eSSVI implied volatility surface, weighted by the option's dollar gamma and discounted by the kernel $D(t,u)\approx e^{-\eta(u-t)}$.
 $\psi_2(t) < 0$ is the inventory weight —  
 $𝑞$ does not change the total quoted width, only how it's split between bid and ask.
