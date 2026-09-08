@@ -58,7 +58,7 @@ where $V_T$ is the market maker's total portfolio value at the close, $Q_t$ is t
 and the intraday risk exposure throughout the entire duration of
 the market-making, respectively.
 
-The optimal bid/ask half-spreads (eq. 11) are:
+The optimal bid/ask half-spreads (Lucic & Tse 2025) are:
 
 $$\delta^{b,*}(t,s,q) = \underbrace{\frac{1}{\kappa^b}}_{\text{liquidity}} - \underbrace{\psi_1(t,s)}_{\text{vol-arb edge + order-flow}} - \underbrace{(2q+1)\psi_2(t)}_{\text{inventory control}}$$
 
