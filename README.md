@@ -45,7 +45,7 @@ afterward.
 
 ## Option Market Making and Volatility Arbitrage
 
-Given a market maker who provides quotes for a European call option with strike $K > 0$, maturity $\tau > 0$ and $`(S_t)_{t \ge 0}`$ being the price process of the underlying risky asset. From the perspective of the market maker, $`(S_t)_{t \ge 0}`$ has the dynamics:
+Given a market maker who provides quotes for a European call option with strike $K > 0$, maturity $\tau > 0$ and $`(S_t)_{t \ge 0}`$ being the price process of the underlying risky asset with the dynamics:
 $`\mathrm{d}S_t/S_t = \sigma_t\mathrm{d}B_t`$,
 where $B_t$ is a standard one-dimensional Brownian motion. The market maker does not have any view on the (short-term) asset drift, while $`(\sigma_t)_{t \ge 0}`$ is their subjective assessment of the asset volatility process.
 
