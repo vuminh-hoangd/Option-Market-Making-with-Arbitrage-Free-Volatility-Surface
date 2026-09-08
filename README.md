@@ -122,7 +122,7 @@ carries no arbitrage risk by construction.**
 
 ![Terminal portfolio value and inventory](pics/PnL-and-inventory.png)
 
-| strategy | mean V_T | running penalty/fee | terminal penalty/fee | OBJECTIVE (value after fees) | objective sd |
+| strategy | mean $V_T$ | running penalty/fee | terminal penalty/fee | OBJECTIVE (value after fees) | objective sd |
 |---|:---:|:---:|:---:|:---:|:---:|
 | optimal (eq. 11) | 1,431.351 | 37.269 | 9.969 | 1,384.114 | 344.221 |
 | fixed-width x0.5 | 1,228.900 | 323.978 | 161.357 | 743.565 | 620.971 |
