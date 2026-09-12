@@ -138,6 +138,8 @@ fixed-width rule's $289, finishing $202 ahead net).
 
 **Optimal policy cuts the inventory-risk cost component by about ((289-47)/289 ≈ 84%) with closed P&L to baseline ($1,431 vs $1,472).**
 
+---
+
 ### Benchmark against classical Avellaneda-Stoikov (2008)
 
 Classical AS quotes a single asset directly — no hedging, no Greeks, no implied surface —
@@ -164,22 +166,9 @@ rule's, making this a **risk-matched** comparison.
 |---|:---:|:---:|:---:|
 | optimal (eq. 11) | 1,424.0 | 1.59 | 1,376.9 |
 | fixed-width x1 | 1,482.8 | 3.49 | 1,198.5 |
-| classical AS (2008) | 1,417.7 | 1.57 | 1,349.2 |
+| classical AS (2008) | 1,417.7 | 1.57 | 1,349.2 |=
 
-| vs | objective gap | 95% CI | t-stat | optimal wins on |
-|---|:---:|:---:|:---:|:---:|
-| fixed-width x1 | +178.4 | ±17.4 | 20.1 | 61.8% of paths |
-| classical AS (2008) | +27.7 | ±15.1 | 3.6 | 52.3% of paths |
-
-**Optimal still wins, but by far less than against fixed-width.** With risk matched, AS has
-*some* inventory control — just a generic, un-hedged one with no vol-arbitrage edge and no
-asymmetric order-flow correction — which closes most of the distance to the option-specific
-optimal rule (t-stat 20.1 → 3.6). Unlike fixed-width, AS doesn't trade P&L for safety either:
-optimal wins on raw $V_T$ too ($1,424 vs $1,418), so AS is simply a little worse on both, once
-risk is matched. The remaining ≈$28 is the price of what AS structurally cannot see about this
-specific option-quoting problem — and it grows quickly once the maker's vol view gets bolder
-(see `notebooks/option_mm_vs_avellaneda_stoikov.ipynb`, which reruns this same comparison at
-`σ_imp + 30` points instead of `+5` and finds the gap roughly 5-6x larger).
+**Optimal still wins, but by far less than against fixed-width.** 
 
 ## Project Structure
 
