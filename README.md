@@ -148,7 +148,7 @@ with utility risk-aversion $\gamma$:
 $$r(s,q,t) = s - q\gamma\sigma^2(T-t), \qquad
 \delta^b+\delta^a = \gamma\sigma^2(T-t) + \frac{2}{\gamma}\ln\!\Big(1+\frac{\gamma}{k}\Big)$$
 
-Adapted to `option_market_making/benchmarks.py` by using the option mark $O(t,S_t)$ as the asset. By Itô's lemma, $dO(t,S_t)$ contains a drift term $\frac{\sigma^2-\sigma_{\text{imp}}^2}{2}\Gamma^\$(t,S_t)\,dt$, which vanishes only when $\sigma = \sigma_{\text{imp}}$. AS therefore uses $\sigma_O := |\Delta_t|S_t\sigma_{\text{imp}}$, reflecting a zero-volatility-view assumption. $k$ is the average of $\kappa^b, \kappa^a$, and $\gamma$ is calibrated via bisection to match the optimal rule's $\text{mean}|q|$ for a risk-matched comparison.
+Adapted to `option_market_making/benchmarks.py` by using the option mark $O(t,S_t)$ as the asset. By Itô's lemma, $dO(t,S_t)$ contains a drift term $`\frac{\sigma^2-\sigma_{\text{imp}}^2}{2}\Gamma^\$(t,S_t) dt`$, which vanishes only when $\sigma = \sigma_{\text{imp}}$. AS model therefore uses $\sigma_O(t) := |\Delta_t|S_t\sigma_{\text{imp}}$, reflecting a zero-volatility-view assumption. $k$ is the average of $\kappa^b, \kappa^a$, and $\gamma$ is calibrated via bisection to match the optimal rule's $\text{mean}|q|$ for a risk-matched comparison.
 
 
 ![Terminal portfolio value and inventory vs AS model](pics/PnL-and-inventory-vs-AS.png)
