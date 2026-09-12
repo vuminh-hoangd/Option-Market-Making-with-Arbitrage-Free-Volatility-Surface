@@ -142,13 +142,19 @@ fixed-width rule's $289, finishing $202 ahead net).
 
 ### Benchmark against classical Avellaneda-Stoikov (2008)
 
-Classical AS quotes a single asset directly — no hedging, no Greeks, no implied surface —
-with utility risk-aversion $\gamma$:
+Classical Avellaneda-Stoikov quotes a single asset directly — no hedging, no Greeks, no implied surface — a dealer just posts a bid/ask around a midprice $S_t$ ($dS_t=\sigma_S dB_t$) with $\sigma_S$ being the **constant** volatility of asset $S_t$ (not to be confused with maker's belief $\sigma$ above), utility risk-aversion $\gamma$, and fills arrive symmetrically at rate $\lambda(\delta)=Ae^{-k\delta}$ on each side. Its closed-form quote:
+
+$$r(s,q,t) = s - q\gamma\sigma^2(T-t), \qquad \delta^b+\delta^a = \gamma\sigma^2(T-t) + \frac{2}{\gamma}\ln\!\Big(1+\frac{\gamma}{k}\Big), \qquad \text{bid,ask} = r \pm \frac{\delta^b+\delta^a}{2}$$
 
 $$r(s,q,t) = s - q\gamma\sigma^2(T-t), \qquad
 \delta^b+\delta^a = \gamma\sigma^2(T-t) + \frac{2}{\gamma}\ln\!\Big(1+\frac{\gamma}{k}\Big)$$
 
-Adapted to `option_market_making/benchmarks.py` by using the option mark $O(t,S_t)$ as the asset. By Itô's lemma, $dO(t,S_t)$ contains a drift term $`\frac{\sigma^2-\sigma_{\text{imp}}^2}{2}\Gamma^\$(t,S_t) dt`$, which vanishes only when $\sigma = \sigma_{\text{imp}}$. AS model therefore uses $\sigma_O(t) := |\Delta_t|S_t\sigma_{\text{imp}}$, reflecting a zero-volatility-view assumption. $k$ is the average of $\kappa^b, \kappa^a$, and $\gamma$ is calibrated via bisection to match the optimal rule's $\text{mean}|q|$ for a risk-matched comparison.
+Adapted to `option_market_making/benchmarks.py` by using the option mark $O(t,S_t)$ as the asset. By Itô's lemma:
+
+$$dO(t, S_t) = \frac{\sigma^2 - \sigma_{\text{imp}}^2}{2} \Gamma^{\$}(t, S_t) \, dt + \Delta_t \sigma S_t \, dB_t$$
+
+dO(t,S_t)$ contains a drift term, which vanishes only when $\sigma = \sigma_{\text{imp}}$, the maker's real-world vol view coincides exactly with the
+implied vol. AS model therefore uses $\sigma_O(t) := |\Delta_t|S_t\sigma_{\text{imp}}$, reflecting a zero-volatility-view assumption with $dO_t = \Delta_t\,\sigma_{\text{imp}}\,S_t\,dB_t$. $k$ is the average of $\kappa^b, \kappa^a$, and $\gamma$ is calibrated via bisection to match the optimal rule's $\text{mean}|q|$ for a risk-matched comparison.
 
 
 ![Terminal portfolio value and inventory vs AS model](pics/PnL-and-inventory-vs-AS.png)
@@ -160,7 +166,7 @@ Adapted to `option_market_making/benchmarks.py` by using the option mark $O(t,S_
 | fixed-width x1 | 1,482.779 | 191.233 | 93.010 | 1,198.537 | 450.650 |
 | classical AS (2008) | 1,417.732 | 39.422 | 29.140 | 1,349.170 | 342.880 |
 
-**Optimal still wins, but by far less than against fixed-width.** 
+**Optimal still wins, but by far less than against fixed-width.** Optimal policy cuts the inventory-risk cost component by about 31.34% with closed P&L vs AS.
 
 ## Project Structure
 
