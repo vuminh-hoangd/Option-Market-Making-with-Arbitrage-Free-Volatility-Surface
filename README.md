@@ -162,11 +162,11 @@ objectives are different shapes entirely (CARA utility vs. eq. 2's quadratic pen
 calibrated, not guessed: bisected until AS's own simulated $\text{mean}|q|$ matches the optimal
 rule's, making this a **risk-matched** comparison.
 
-| strategy | mean V_T | mean \|q\| | OBJECTIVE (value after fees) |
-|---|:---:|:---:|:---:|
-| optimal (eq. 11) | 1,424.0 | 1.59 | 1,376.9 |
-| fixed-width x1 | 1,482.8 | 3.49 | 1,198.5 |
-| classical AS (2008) | 1,417.7 | 1.57 | 1,349.2 |=
+| Strategy | Mean V_T | Running Penalty/Fee | Terminal Penalty/Fee | OBJECTIVE (Value After Fees) | Objective SD |
+|---|:---:|:---:|:---:|:---:|:---:|
+| optimal (eq. 11) | 1,423.975 | 37.186 | 9.887 | 1,376.901 | 339.751 |
+| fixed-width x1 | 1,482.779 | 191.233 | 93.010 | 1,198.537 | 450.650 |
+| classical AS (2008) | 1,417.732 | 39.422 | 29.140 | 1,349.170 | 342.880 |
 
 **Optimal still wins, but by far less than against fixed-width.** 
 
