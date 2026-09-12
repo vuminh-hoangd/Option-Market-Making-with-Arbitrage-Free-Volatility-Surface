@@ -1,0 +1,369 @@
+<title>HJB Validation Gate</title>
+<style>
+  :root {
+    color-scheme: light;
+    --ground:   #f6f8f8;
+    --panel:    #ffffff;
+    --ink:      #11181c;
+    --ink-soft: #46565c;
+    --ink-mute: #6d7f85;
+    --rule:     #d9e2e2;
+    --accent:   #0d6b73;
+    --accent-bg:#e2efef;
+    --warn:     #9a5d16;
+    --warn-bg:  #f7ecdc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground:   #0e1416;
+      --panel:    #151d20;
+      --ink:      #eaf1f1;
+      --ink-soft: #b3c3c6;
+      --ink-mute: #819599;
+      --rule:     #263437;
+      --accent:   #4fb3b8;
+      --accent-bg:#16302f;
+      --warn:     #d59a52;
+      --warn-bg:  #2e2416;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground:   #0e1416;
+    --panel:    #151d20;
+    --ink:      #eaf1f1;
+    --ink-soft: #b3c3c6;
+    --ink-mute: #819599;
+    --rule:     #263437;
+    --accent:   #4fb3b8;
+    --accent-bg:#16302f;
+    --warn:     #d59a52;
+    --warn-bg:  #2e2416;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.62;
+    margin: 0;
+    padding: 4rem 1.5rem 7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.25rem;
+  }
+
+  .col { width: 100%; max-width: 40rem; display: flex; flex-direction: column; gap: 1.1rem; }
+  .wide { width: 100%; max-width: 54rem; }
+
+  h1, h2, h3, .label, .verdict-head, th, .stat-n, code, .num {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  h1 {
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+    margin: 0;
+    font-weight: 600;
+  }
+  h2 {
+    font-size: 1.02rem;
+    letter-spacing: -0.01em;
+    margin: 0;
+    font-weight: 600;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  h2 .n {
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 0.1rem 0.4rem;
+    flex: none;
+  }
+  h3 { font-size: 0.9rem; margin: 0; font-weight: 600; color: var(--ink-soft); }
+
+  .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 0;
+  }
+  p { margin: 0; }
+  p + p { margin-top: 0.65rem; }
+  a { color: var(--accent); }
+  strong { font-weight: 600; }
+  code {
+    font-size: 0.86em;
+    background: var(--accent-bg);
+    color: var(--accent);
+    padding: 0.08em 0.32em;
+    border-radius: 2px;
+  }
+
+  .rule { height: 1px; background: var(--rule); border: 0; margin: 0; width: 100%; }
+
+  /* ---- verdict strip ---- */
+  .verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+  .verdict { background: var(--panel); padding: 1.15rem 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .verdict-head { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; display: flex; align-items: center; gap: 0.45rem; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .pass .dot { background: var(--accent); } .pass .verdict-head { color: var(--accent); }
+  .note .dot { background: var(--warn); }   .note .verdict-head { color: var(--warn); }
+  .verdict p { font-size: 0.94rem; line-height: 1.5; color: var(--ink-soft); }
+  .verdict .stat-n { font-size: 1.5rem; color: var(--ink); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+
+  /* ---- tables ---- */
+  .tw { width: 100%; overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+  caption { caption-side: top; text-align: left; padding: 0.85rem 1rem 0.15rem; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mute); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  th, td { padding: 0.5rem 1rem; text-align: right; border-bottom: 1px solid var(--rule); }
+  th { font-size: 0.7rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-mute); font-weight: 500; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  td { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric: tabular-nums; color: var(--ink-soft); white-space: nowrap; }
+  td:first-child { color: var(--ink); }
+  tbody tr:last-child td { border-bottom: 0; }
+  tr.hi td { background: var(--accent-bg); color: var(--ink); }
+  .good { color: var(--accent); } .bad { color: var(--warn); }
+  .foot { font-size: 0.8rem; color: var(--ink-mute); line-height: 1.5; }
+
+  .callout { border-left: 2px solid var(--accent); background: var(--panel); padding: 0.9rem 1.15rem; border-radius: 0 3px 3px 0; }
+  .callout.warn { border-left-color: var(--warn); }
+  .callout p { font-size: 0.94rem; color: var(--ink-soft); }
+
+  ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  li { color: var(--ink-soft); }
+  li strong { color: var(--ink); }
+</style>
+
+<header class="col">
+  <p class="label">Validation gate &middot; option_market_making</p>
+  <h1>Does the second-order approximation hold?</h1>
+  <p style="color:var(--ink-soft)">
+    The quotes in <code>quoting.py</code> come from the paper's second-order Taylor expansion
+    (eq. 7) of the exact HJB equation (eq. 6). Footnote 5 concedes they are &ldquo;not theoretically
+    optimal&rdquo; and defers the check to a preprint we do not have. This gate runs that check:
+    <code>pde.py</code> solves eq. 6 by finite differences and measures the closed form against it.
+  </p>
+</header>
+
+<section class="wide verdicts">
+  <div class="verdict pass">
+    <p class="verdict-head"><span class="dot"></span>Ground truth licensed</p>
+    <p class="stat-n">&lt;0.005%</p>
+    <p>Worst change under independent refinement of dt, ds, q<sub>max</sub> and grid width &mdash; 100&times; inside the 0.5% requirement.</p>
+  </div>
+  <div class="verdict note">
+    <p class="verdict-head"><span class="dot"></span>Knife-edge: not the story</p>
+    <p class="stat-n">0.92 &rarr; 6.77%</p>
+    <p>Error is monotone in &beta;, not in distance from &zeta;<sub>&minus;</sub>&nbsp;=&nbsp;0. The knife-edge is the middle of the trend, not an easy case.</p>
+  </div>
+  <div class="verdict pass">
+    <p class="verdict-head"><span class="dot"></span>Economic cost</p>
+    <p class="stat-n">&lt;0.15%</p>
+    <p>Spread errors of several percent cost nothing measurable in eq. 2. The earlier objective result stands.</p>
+  </div>
+</section>
+
+<section class="col">
+  <h2><span class="n">01</span>Licensing the finite-difference solution</h2>
+  <p>
+    Nothing can be measured against ground truth that has not earned the name. Three independent
+    checks, in increasing scope.
+  </p>
+  <p>
+    <strong>The diffusion operator alone.</strong> Marched with no source term against two analytic
+    answers: a linear payoff, which is both a martingale and curvature-free, must be preserved
+    exactly (error <span class="num">6.2&times;10<sup>&minus;10</sup></span>); and
+    <span class="num">E[S<sub>T</sub><sup>2</sup>] = s<sup>2</sup>e<sup>&sigma;<sup>2</sup>T</sup></span>,
+    which genuinely exercises the second-difference term (error
+    <span class="num">1.1&times;10<sup>&minus;10</sup></span>, halving cleanly with dt).
+  </p>
+</section>
+
+<div class="wide tw">
+  <table>
+    <caption>Grid convergence &mdash; max relative change in spreads over 18 probe points</caption>
+    <thead><tr><th>Refinement</th><th>Max change</th><th>Requirement</th></tr></thead>
+    <tbody>
+      <tr><td>halve dt &nbsp;<span style="color:var(--ink-mute)">n_t 800 &rarr; 1600</span></td><td class="good">0.002%</td><td>&lt; 0.5%</td></tr>
+      <tr><td>halve ds &nbsp;<span style="color:var(--ink-mute)">n_s 201 &rarr; 401</span></td><td class="good">0.001%</td><td>&lt; 0.5%</td></tr>
+      <tr><td>widen q_max &nbsp;<span style="color:var(--ink-mute)">15 &rarr; 20</span></td><td class="good">0.000%</td><td>&lt; 0.5%</td></tr>
+      <tr><td>widen s-grid &nbsp;<span style="color:var(--ink-mute)">&plusmn;0.6 &rarr; &plusmn;1.0 log</span></td><td class="good">0.005%</td><td>&lt; 0.5%</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<section class="col">
+  <p>
+    <strong>Against the Monte Carlo.</strong> The strongest check, because it shares no code with the
+    solver: <span class="num">h(0,&nbsp;S<sub>0</sub>,&nbsp;0)</span> is the optimal expected value of
+    eq. 2 starting flat, so it should match what <code>sim.py</code> actually achieves. The PDE says
+    <span class="num">1381.1</span>; the simulation returns <span class="num">1384.1 &plusmn; 5.4</span>.
+    Agreement inside Monte Carlo noise, from two independent implementations.
+  </p>
+  <div class="callout">
+    <p>
+      A useful corroboration fell out along the way: the coupling prefactors
+      <span class="num">(&lambda;<sub>a</sub>e<sup>&minus;1</sup>/&kappa;<sub>a</sub> + &lambda;<sub>b</sub>e<sup>&minus;1</sup>/&kappa;<sub>b</sub>)&times;T = 1459</span>
+      &mdash; almost exactly the simulated mean V<sub>T</sub> of 1426. The PDE's own scale is the
+      spread-capture rate, which is what the business is.
+    </p>
+  </div>
+</section>
+
+<section class="col">
+  <h2><span class="n">02</span>How wrong are the closed-form spreads?</h2>
+  <p>
+    Spreads are read off the value function via eq. 5 and compared against
+    <code>optimal_spreads</code> across the full matrix: two horizons, three &beta;, five spots,
+    q from &minus;5 to +5.
+  </p>
+</section>
+
+<div class="wide tw">
+  <table>
+    <caption>Max relative spread error over the (t, s, q) matrix</caption>
+    <thead><tr><th>&beta;</th><th>&zeta;<sub>&minus;</sub></th><th>T = 0.5/252</th><th>T = 10/252</th><th>Max abs error</th></tr></thead>
+    <tbody>
+      <tr><td>2178 &nbsp;<span style="color:var(--ink-mute)">&beta;/2</span></td><td>&minus;0.586</td><td class="good">0.918%</td><td class="good">0.997%</td><td>$0.27</td></tr>
+      <tr class="hi"><td>4357 &nbsp;<span style="color:var(--ink-mute)">knife-edge</span></td><td>0.000</td><td>1.791%</td><td>1.871%</td><td>$0.41</td></tr>
+      <tr><td>8714 &nbsp;<span style="color:var(--ink-mute)">&beta;&times;2</span></td><td>+0.828</td><td class="bad">6.768%</td><td class="bad">7.231%</td><td>$0.93</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="wide tw">
+  <table>
+    <caption>Error vs time-to-horizon &mdash; max over q, at s = S<sub>0</sub></caption>
+    <thead><tr><th>(T&minus;t)/T</th><th>&beta;/2</th><th>knife-edge</th><th>&beta;&times;2</th></tr></thead>
+    <tbody>
+      <tr><td>0.00</td><td>0.000%</td><td>0.000%</td><td>0.000%</td></tr>
+      <tr><td>0.10</td><td>0.729%</td><td>1.003%</td><td>1.764%</td></tr>
+      <tr><td>0.25</td><td>0.918%</td><td>1.555%</td><td>3.420%</td></tr>
+      <tr><td>0.50</td><td>0.914%</td><td>1.750%</td><td>4.120%</td></tr>
+      <tr><td>0.75</td><td>0.909%</td><td>1.783%</td><td>4.305%</td></tr>
+      <tr><td>1.00</td><td>0.914%</td><td>1.791%</td><td>4.349%</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<section class="col">
+  <p>
+    Two things stand out, and both cut against the expected picture.
+  </p>
+  <p>
+    <strong>The error saturates almost immediately.</strong> It reaches its plateau by
+    <span class="num">(T&minus;t)/T &asymp; 0.25</span> and is flat thereafter &mdash; and twenty
+    times the horizon moves it barely at all (1.79% &rarr; 1.87% at the baseline). The paper's
+    &ldquo;very satisfactory performance over a short market-making horizon&rdquo; is true, but the
+    horizon is not what is making it true. The error is a function of <em>state</em>, not of elapsed time.
+  </p>
+  <p>
+    <strong>It is worst where inventory is largest.</strong> At the baseline the error runs
+    <span class="num">0.23%</span> at q&nbsp;=&nbsp;0 and <span class="num">1.79%</span> at
+    q&nbsp;=&nbsp;&minus;5. That points straight at the mechanism: the expansion is taken about
+    <span class="num">z = &kappa;(&delta; &minus; 1/&kappa;) = &kappa;(&psi;<sub>1</sub> + (2q&mp;1)&psi;<sub>2</sub>)</span>,
+    and its remainder grows with |z|. Both &beta; and |q| inflate |z|; the horizon does not.
+  </p>
+</section>
+
+<section class="col">
+  <h2><span class="n">03</span>The knife-edge question</h2>
+  <p>
+    The concern that prompted this build: <span class="num">&beta; = 4357</span> sits exactly on
+    <span class="num">&radic;(&Upsilon;&beta;) = &alpha;</span>, so <span class="num">&zeta;<sub>&minus;</sub> = 0</span>
+    and &psi;<sub>2</sub> collapses to the constant &minus;&alpha;. Was the earlier objective result
+    an artifact of an unusually easy case?
+  </p>
+  <div class="callout warn">
+    <p>
+      <strong>No &mdash; but not because the knife-edge is hard either.</strong> Accuracy degrades
+      monotonically in &beta;, and the knife-edge is simply the middle of that trend: &beta;/2 is
+      <em>more</em> favorable to the approximation, &beta;&times;2 is <em>less</em>. Proximity to
+      &zeta;<sub>&minus;</sub>&nbsp;=&nbsp;0 is not the variable that matters. &beta; is &mdash;
+      because &beta; sets |&psi;<sub>2</sub>|, which sets |z|.
+    </p>
+  </div>
+  <p>
+    So the knife-edge was never special. It did not flatter the earlier result, and it did not
+    disguise a problem. The question was worth asking and the answer is that it was the wrong
+    variable to worry about.
+  </p>
+</section>
+
+<section class="col">
+  <h2><span class="n">04</span>What the approximation actually costs</h2>
+  <p>
+    Spread error is the wrong terminal metric. What matters is what the error costs in the objective
+    the rule exists to maximise. The exact policy is read off the PDE grid and simulated directly
+    &mdash; same fills, same hedging, same paths &mdash; against the closed form and the
+    constant-width benchmarks.
+  </p>
+</section>
+
+<div class="wide tw">
+  <table>
+    <caption>Eq. 2 by strategy, paired on identical spot paths (N = 8000)</caption>
+    <thead><tr><th>Strategy</th><th>&beta;/2 = 2178</th><th>&beta; = 4357</th><th>&beta;&times;2 = 8714</th></tr></thead>
+    <tbody>
+      <tr><td>exact (PDE policy)</td><td>1399.0</td><td>1380.8</td><td>1346.0</td></tr>
+      <tr class="hi"><td>closed form (eq. 11)</td><td>1401.2</td><td>1380.9</td><td>1344.1</td></tr>
+      <tr><td><span style="color:var(--ink-mute)">gap vs exact</span></td><td>&minus;2.20 &plusmn; 10.61</td><td>&minus;0.08 &plusmn; 10.62</td><td>+1.88 &plusmn; 10.50</td></tr>
+      <tr><td>constant &times;0.5</td><td class="bad">893.7</td><td class="bad">725.9</td><td class="bad">390.2</td></tr>
+      <tr><td>constant &times;1</td><td>1283.6</td><td>1187.9</td><td>996.6</td></tr>
+      <tr><td>constant &times;2</td><td>1016.5</td><td>983.5</td><td>917.4</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<section class="col">
+  <p>
+    At all three &beta; the closed form is <strong>statistically indistinguishable from exact</strong>
+    &mdash; every gap sits inside its own 95% confidence interval, including at &beta;&times;2 where
+    the spreads are up to 6.8% wrong. And it beats every constant-width rival by 115 to 956.
+  </p>
+  <p>
+    The reason is the envelope theorem, not luck. The objective is stationary at its optimum, so a
+    first-order error in the control produces only a second-order loss in value. A quoting rule can
+    be several percent off in spread and still capture essentially all of the available objective.
+  </p>
+  <div class="callout">
+    <p>
+      <strong>The earlier Finding 3 stands as written.</strong> It does not need rerunning or
+      reframing: the closed form's advantage over constant-width quoting was not an artifact of the
+      knife-edge, and the approximation was never what was in question.
+    </p>
+  </div>
+</section>
+
+<section class="col">
+  <h2><span class="n">05</span>How far to trust the closed form</h2>
+  <ul>
+    <li><strong>For quoting, trust it.</strong> Within a few percent of exact on spreads and within noise on the objective, across every &beta; and horizon tested.</li>
+    <li><strong>Watch &beta;, not the horizon.</strong> Error scales with &beta; and with |q|, and is flat in T. A desk running a much larger inventory penalty than tested here should re-run this gate before trusting the spreads at large |q|.</li>
+    <li><strong>Spread error is not objective error.</strong> Do not size a tolerance on spread accuracy alone &mdash; the two differ by an order of magnitude, in the approximation's favour.</li>
+  </ul>
+  <hr class="rule" />
+  <p class="label">Caveats</p>
+  <p class="foot">
+    Single option, constant &sigma;, one frozen Deribit snapshot (BTC, K&nbsp;=&nbsp;80000,
+    &tau;&nbsp;&asymp;&nbsp;31d, &sigma;<sub>imp</sub>&nbsp;=&nbsp;40.75%), and one liquidity
+    parameterisation. The coupling terms are handled explicitly, so the scheme carries a real
+    stability limit &mdash; the reaction Jacobian grows like
+    exp(&kappa;|&psi;<sub>2</sub>|&middot;2q<sub>max</sub>), which is why q<sub>max</sub> stays at 15&ndash;20
+    rather than being made generously large. Tested &beta; spans one octave either side of baseline;
+    nothing here speaks to &beta; orders of magnitude away, nor to the multi-option case, where the
+    grid gains one inventory axis per instrument and this approach stops being viable.
+  </p>
+</section>

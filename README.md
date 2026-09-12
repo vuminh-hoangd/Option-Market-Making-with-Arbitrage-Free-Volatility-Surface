@@ -138,6 +138,49 @@ fixed-width rule's $289, finishing $202 ahead net).
 
 **Optimal policy cuts the inventory-risk cost component by about ((289-47)/289 ≈ 84%) with closed P&L to baseline ($1,431 vs $1,472).**
 
+### Benchmark against classical Avellaneda-Stoikov (2008)
+
+Classical AS quotes a single asset directly — no hedging, no Greeks, no implied surface —
+under CARA (exponential) utility risk-aversion $\gamma$:
+
+$$r(s,q,t) = s - q\gamma\sigma^2(T-t), \qquad
+\delta^b+\delta^a = \gamma\sigma^2(T-t) + \frac{2}{\gamma}\ln\!\Big(1+\frac{\gamma}{k}\Big)$$
+
+Adapted to this option (`option_market_making/benchmarks.py`) by treating the option's own
+mark $O(t,S_t)$ as AS's "asset". By Ito's lemma, $dO(t,S_t)$ has a drift term
+$\frac{\sigma^2-\sigma_{\text{imp}}^2}{2}\Gamma^\$(t,S_t)\,dt$ that AS's own driftless model
+(`ds=\sigma\,dB`) has no room for. That drift is exactly zero — matching AS's own no-drift
+assumption with no hidden inconsistency — only when $\sigma=\sigma_{\text{imp}}$, since the
+dollar gamma $\Gamma^\$$ is always positive. So this benchmark always uses
+$\sigma_O:=|\Delta_t|S_t\sigma_{\text{imp}}$ for AS's own diffusion coefficient: the
+self-consistent reading of "apply AS's no-drift assumption to an option" is that AS can only
+ever be a model for a maker with no capacity to hold a volatility view at all. $k$ is the
+average of $\kappa^b,\kappa^a$. $\gamma$ has no natural translation from $(\alpha,\beta)$ — the
+objectives are different shapes entirely (CARA utility vs. eq. 2's quadratic penalty) — so it is
+calibrated, not guessed: bisected until AS's own simulated $\text{mean}|q|$ matches the optimal
+rule's, making this a **risk-matched** comparison.
+
+| strategy | mean V_T | mean \|q\| | OBJECTIVE (value after fees) |
+|---|:---:|:---:|:---:|
+| optimal (eq. 11) | 1,424.0 | 1.59 | 1,376.9 |
+| fixed-width x1 | 1,482.8 | 3.49 | 1,198.5 |
+| classical AS (2008) | 1,417.7 | 1.57 | 1,349.2 |
+
+| vs | objective gap | 95% CI | t-stat | optimal wins on |
+|---|:---:|:---:|:---:|:---:|
+| fixed-width x1 | +178.4 | ±17.4 | 20.1 | 61.8% of paths |
+| classical AS (2008) | +27.7 | ±15.1 | 3.6 | 52.3% of paths |
+
+**Optimal still wins, but by far less than against fixed-width.** With risk matched, AS has
+*some* inventory control — just a generic, un-hedged one with no vol-arbitrage edge and no
+asymmetric order-flow correction — which closes most of the distance to the option-specific
+optimal rule (t-stat 20.1 → 3.6). Unlike fixed-width, AS doesn't trade P&L for safety either:
+optimal wins on raw $V_T$ too ($1,424 vs $1,418), so AS is simply a little worse on both, once
+risk is matched. The remaining ≈$28 is the price of what AS structurally cannot see about this
+specific option-quoting problem — and it grows quickly once the maker's vol view gets bolder
+(see `notebooks/option_mm_vs_avellaneda_stoikov.ipynb`, which reruns this same comparison at
+`σ_imp + 30` points instead of `+5` and finds the gap roughly 5-6x larger).
+
 ## Project Structure
 
 ```
@@ -153,9 +196,12 @@ fixed-width rule's $289, finishing $202 ahead net).
 │   │   ├── arbitrage.py      # butterfly (g(k)>=0) + calendar no-arbitrage checks
 │   │   └── surface.py        # VolSurface / SSVIVolSurface query + interpolation layer
 │   └── option_market_making/ # optimal quoting under vol-arb (PDE/Riccati solvers, sim)
+│       ├── avellaneda_stoikov.py  # classical Avellaneda-Stoikov (2008) closed form
+│       └── benchmarks.py          # adapts it to this option, run through sim.py
 ├── notebooks/
-│   ├── vol_surface_pipeline.ipynb    # SVI vs SSVI vs eSSVI, fit -> validate -> benchmark
-│   └── option_mm_vol_arbitrage.ipynb # Lucic & Tse's quoting model, walked through end to end
+│   ├── vol_surface_pipeline.ipynb          # SVI vs SSVI vs eSSVI, fit -> validate -> benchmark
+│   ├── option_mm_vol_arbitrage.ipynb       # Lucic & Tse's quoting model, walked through end to end
+│   └── option_mm_vs_avellaneda_stoikov.ipynb  # same AS benchmark, bolder vol view, bigger gap
 ├── pics/                      # figures embedded in this README
 └── requirements.txt
 ```
@@ -166,6 +212,8 @@ fixed-width rule's $289, finishing $202 ahead net).
 - Gatheral, J., & Jacquier, A. (2013). [Arbitrage-free SVI volatility surfaces](https://arxiv.org/abs/1204.0646). *Quantitative Finance*, arXiv:1204.0646. — raw SVI, the butterfly/calendar no-arbitrage conditions, and the SSVI parametrization (`svi.py`, `arbitrage.py`, `ssvi.py`).
 - Mingone, A. (2022). [No arbitrage global parametrization for the eSSVI volatility surface](https://arxiv.org/abs/2204.00312). arXiv:2204.00312. — the box reparametrization that makes eSSVI calibration arbitrage-free by construction (`global_essvi.py`).
 - Lucic, V., & Tse, A. S. L. (2025). Option market-making and vol arbitrage. *Risk.net*. (Working paper title: *Optimal option market making and volatility arbitrage*.) — the quoting model implemented in `option_market_making/` and explored in `option_mm_vol_arbitrage.ipynb`.
+- Avellaneda, M., & Stoikov, S. (2008). High-frequency trading in a limit order book. *Quantitative Finance*, 8(3), 217–224. — the classical single-asset benchmark implemented in `option_market_making/avellaneda_stoikov.py`.
+- Stoikov, S., & Saglam, M. (2009). Option market making under inventory risk. *Review of Derivatives Research*, 12(1), 55–79. — implemented in `market_making/quoting.py`.
 
 
 
