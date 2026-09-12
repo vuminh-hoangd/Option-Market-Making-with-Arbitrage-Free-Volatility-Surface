@@ -154,7 +154,7 @@ Adapted to `option_market_making/benchmarks.py` by using the option mark $O(t,S_
 $$dO(t, S_t) = \frac{\sigma^2 - \sigma_{\text{imp}}^2}{2} \Gamma^{\$}(t, S_t) \, dt + \Delta_t \sigma S_t  dB_t$$
 
 $dO(t,S_t)$ contains a drift term, which vanishes only when $\sigma = \sigma_{\text{imp}}$, the maker's real-world vol view coincides exactly with the
-implied vol. AS model therefore uses $\sigma_O(t) := |\Delta_t|S_t\sigma_{\text{imp}}$, reflecting a zero-volatility-view assumption with $dO_t = \Delta_t\sigma_{\text{imp}}S_tdB_t$. $k$ is the average of $\kappa^b, \kappa^a$, and $\gamma$ is calibrated via bisection to match the optimal rule's $\text{mean}|q|$ for a risk-matched comparison.
+implied vol. AS model therefore uses $\sigma_O(t) := |\Delta_t|S_t\sigma_{\text{imp}}$, reflecting a zero-volatility-view assumption with $dO_t = \sigma_O(t) dB_t$. $k$ is the average of $\kappa^b, \kappa^a$, and $\gamma$ is calibrated via bisection to match the optimal rule's $\text{mean}|q|$ for a risk-matched comparison.
 
 
 ![Terminal portfolio value and inventory vs AS model](pics/PnL-and-inventory-vs-AS.png)
