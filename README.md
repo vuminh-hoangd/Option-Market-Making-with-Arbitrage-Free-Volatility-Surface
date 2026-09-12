@@ -143,24 +143,12 @@ fixed-width rule's $289, finishing $202 ahead net).
 ### Benchmark against classical Avellaneda-Stoikov (2008)
 
 Classical AS quotes a single asset directly — no hedging, no Greeks, no implied surface —
-under CARA (exponential) utility risk-aversion $\gamma$:
+with utility risk-aversion $\gamma$:
 
 $$r(s,q,t) = s - q\gamma\sigma^2(T-t), \qquad
 \delta^b+\delta^a = \gamma\sigma^2(T-t) + \frac{2}{\gamma}\ln\!\Big(1+\frac{\gamma}{k}\Big)$$
 
-Adapted to this option (`option_market_making/benchmarks.py`) by treating the option's own
-mark $O(t,S_t)$ as AS's "asset". By Ito's lemma, $dO(t,S_t)$ has a drift term
-$\frac{\sigma^2-\sigma_{\text{imp}}^2}{2}\Gamma^\$(t,S_t)\,dt$ that AS's own driftless model
-(`ds=\sigma\,dB`) has no room for. That drift is exactly zero — matching AS's own no-drift
-assumption with no hidden inconsistency — only when $\sigma=\sigma_{\text{imp}}$, since the
-dollar gamma $\Gamma^\$$ is always positive. So this benchmark always uses
-$\sigma_O:=|\Delta_t|S_t\sigma_{\text{imp}}$ for AS's own diffusion coefficient: the
-self-consistent reading of "apply AS's no-drift assumption to an option" is that AS can only
-ever be a model for a maker with no capacity to hold a volatility view at all. $k$ is the
-average of $\kappa^b,\kappa^a$. $\gamma$ has no natural translation from $(\alpha,\beta)$ — the
-objectives are different shapes entirely (CARA utility vs. eq. 2's quadratic penalty) — so it is
-calibrated, not guessed: bisected until AS's own simulated $\text{mean}|q|$ matches the optimal
-rule's, making this a **risk-matched** comparison.
+Adapted to `option_market_making/benchmarks.py` by using the option mark $O(t,S_t)$ as the asset. By Itô's lemma, $dO(t,S_t)$ contains a drift term $\frac{\sigma^2-\sigma_{\text{imp}}^2}{2}\Gamma^\$(t,S_t)\,dt$, which vanishes only when $\sigma = \sigma_{\text{imp}}$. AS therefore uses $\sigma_O := |\Delta_t|S_t\sigma_{\text{imp}}$, reflecting a zero-volatility-view assumption. $k$ is the average of $\kappa^b, \kappa^a$, and $\gamma$ is calibrated via bisection to match the optimal rule's $\text{mean}|q|$ for a risk-matched comparison.
 
 
 ![Terminal portfolio value and inventory vs AS model](pics/PnL-and-inventory-vs-AS.png)
