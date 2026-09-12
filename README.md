@@ -144,7 +144,7 @@ fixed-width rule's $289, finishing $202 ahead net).
 
 Classical Avellaneda-Stoikov quotes a single asset directly — no hedging, no Greeks, no implied surface — a dealer just posts a bid/ask around a midprice $S_t$ ($dS_t=\sigma_S dB_t$) with $\sigma_S$ being the **constant** volatility of asset $S_t$ (not to be confused with maker's belief $\sigma$ above), utility risk-aversion $\gamma$, and fills arrive symmetrically at rate $\lambda(\delta)=Ae^{-k\delta}$ on each side. Its closed-form quote:
 
-$$r(s,q,t) = s - q\gamma\sigma^2(T-t), \qquad \delta^b+\delta^a = \gamma\sigma^2(T-t) + \frac{2}{\gamma}\ln\!\Big(1+\frac{\gamma}{k}\Big), \qquad \text{bid,ask} = r \pm \frac{\delta^b+\delta^a}{2}$$
+$$r(s,q,t) = s - q\gamma\sigma^2(T-t), \qquad \delta^b+\delta^a = \gamma\sigma^2(T-t) + \frac{2}{\gamma}\log\Big(1+\frac{\gamma}{k}\Big), \qquad \text{bid,ask} = r \pm \frac{\delta^b+\delta^a}{2}$$
 
 $$r(s,q,t) = s - q\gamma\sigma^2(T-t), \qquad
 \delta^b+\delta^a = \gamma\sigma^2(T-t) + \frac{2}{\gamma}\log \Big(1+\frac{\gamma}{k}\Big)$$
