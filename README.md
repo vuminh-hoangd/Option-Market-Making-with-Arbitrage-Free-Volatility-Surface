@@ -162,6 +162,10 @@ objectives are different shapes entirely (CARA utility vs. eq. 2's quadratic pen
 calibrated, not guessed: bisected until AS's own simulated $\text{mean}|q|$ matches the optimal
 rule's, making this a **risk-matched** comparison.
 
+
+![Terminal portfolio value and inventory vs AS model](pics/PnL-and-inventory-vs-AS.png)
+
+
 | Strategy | Mean V_T | Running Penalty/Fee | Terminal Penalty/Fee | OBJECTIVE (Value After Fees) | Objective SD |
 |---|:---:|:---:|:---:|:---:|:---:|
 | optimal (eq. 11) | 1,423.975 | 37.186 | 9.887 | 1,376.901 | 339.751 |
