@@ -200,7 +200,6 @@ implied vol. AS model therefore uses $\sigma_O(t) := |\Delta_t|S_t\sigma_{\text{
 - Mingone, A. (2022). [No arbitrage global parametrization for the eSSVI volatility surface](https://arxiv.org/abs/2204.00312). arXiv:2204.00312. — the box reparametrization that makes eSSVI calibration arbitrage-free by construction (`global_essvi.py`).
 - Lucic, V., & Tse, A. S. L. (2025). Option market-making and vol arbitrage. *Risk.net*. (Working paper title: *Optimal option market making and volatility arbitrage*.) — the quoting model implemented in `option_market_making/` and explored in `option_mm_vol_arbitrage.ipynb`.
 - Avellaneda, M., & Stoikov, S. (2008). High-frequency trading in a limit order book. *Quantitative Finance*, 8(3), 217–224. — the classical single-asset benchmark implemented in `option_market_making/avellaneda_stoikov.py`.
-- Stoikov, S., & Saglam, M. (2009). Option market making under inventory risk. *Review of Derivatives Research*, 12(1), 55–79. — implemented in `market_making/quoting.py`.
 
 
 
