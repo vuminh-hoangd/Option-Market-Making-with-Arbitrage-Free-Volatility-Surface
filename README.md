@@ -5,7 +5,7 @@
 ## No arbitrage eSSVI volatility surface
 
 Maturity is denoted $\tau$ throughout;
-$k = \ln(K/F(\tau))$ is log-forward-moneyness, and total variance is
+$k$ is log-forward-moneyness, and total variance is
 $w(k,\tau) = \sigma^2_{\text{imp}}(k,\tau)\tau$.
 
 ### 1. SVI
