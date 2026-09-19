@@ -25,18 +25,18 @@ $$
 $$
 
 with $\rho(\tau)$ now free to vary by maturity — the extension over SSVI's single shared
-$\rho$. For a discrete term structure $\tau_1 < \tau_2 < \dots < \tau_N$, write
-$(\theta_i,\rho_i,\psi_i) := (\theta(\tau_i),\rho(\tau_i),\psi(\tau_i))$, $3N$ parameters
+$\rho$. For a discrete term structure $\tau_1 < \tau_2 < \dots < \tau_N$, we write
+$(\theta_i,\rho_i,\psi_i) := (\theta(\tau_i),\rho(\tau_i),\psi(\tau_i))$, with $3N$ parameters
 total.
 
-The key idea (Mingone 2022): rather than fit-then-check, the admissible region
+The key idea (Mingone 2022): rather than fit-then-check as in SVI, the admissible region
 is **reparametrized as an open hyperrectangle**
 
 $$
 \rho_i \in (-1,1), \quad \theta_1 \in (0,\infty), \quad a_i \in (0,\infty), \quad c_i \in (0,1), \qquad i =1,2,\ldots,N.
 $$
 
-with an explicit bijection (`unbox`) onto every arbitrage-free surface (Proposition 3.1).
+with an explicit bijection onto every arbitrage-free surface (Proposition 3.1).
 Calibration becomes ordinary box-constrained least squares on option prices — every
 point the optimizer can visit is already **arbitrage-free**, so there is nothing to check
 afterward.
