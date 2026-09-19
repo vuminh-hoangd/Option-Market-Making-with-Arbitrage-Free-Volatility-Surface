@@ -101,7 +101,7 @@ $$e_i = \big|\sigma^{\text{model}}(K_i,\tau_i) - \sigma^{\text{market}}_i\big|, 
 model landing inside that band is indistinguishable from correct).
 
 | Model | Params | Expiries Fitted | Median \|dvol\| | Mean  | Inside Bid-Ask |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|
+|---|:---:|:---:|:---:|:---:|:---:|
 | **SVI + interpolate** | 40 | 8/10 | 0.150% | 0.618% | 71% |
 | **SSVI** | 13 | 10/10 | 1.012% | 2.057%  | 32% |
 | **Global eSSVI** | 30 | 10/10 | 0.156% | 0.348%  | 88% |
