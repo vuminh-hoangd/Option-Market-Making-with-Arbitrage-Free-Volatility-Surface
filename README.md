@@ -100,15 +100,15 @@ $$e_i = \big|\sigma^{\text{model}}(K_i,\tau_i) - \sigma^{\text{market}}_i\big|, 
 (half the market's own bid-ask, converted from price to vol points via vega — a
 model landing inside that band is indistinguishable from correct).
 
-| Model | Params | Expiries Fitted | Median \|dvol\| | Mean | P90 | Inside Bid-Ask |
+| Model | Params | Expiries Fitted | Median \|dvol\| | Mean  | Inside Bid-Ask |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|
-| **SVI + interpolate** | 40 | 8/10 | 0.150% | 0.618% | 2.112% | 71% |
-| **SSVI** | 13 | 10/10 | 1.012% | 2.057% | 5.389% | 32% |
-| **Global eSSVI** | 30 | 10/10 | 0.156% | 0.348% | 0.523% | 88% |
+| **SVI + interpolate** | 40 | 8/10 | 0.150% | 0.618% | 71% |
+| **SSVI** | 13 | 10/10 | 1.012% | 2.057%  | 32% |
+| **Global eSSVI** | 30 | 10/10 | 0.156% | 0.348%  | 88% |
 
-**Verdict: Global eSSVI.** SVI's median is slightly better, but it comes from dropping the
-two maturities it can't fit without arbitrage — and its `p90`   and `inside bid-ask` are both worse than eSSVI's results. **eSSVI fits every maturity,
-wins the columns that matter for a surface, and
+**Conclusion: Global eSSVI.** SVI's median is slightly better, but it comes from dropping the
+two maturities it can't fit without arbitrage — and its `inside bid-ask` is worse than eSSVI's results. **eSSVI fits every maturity,
+wins on inside bid-ask`, and
 carries no arbitrage risk by construction.**
 
 
